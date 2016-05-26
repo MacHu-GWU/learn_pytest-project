@@ -15,15 +15,15 @@ pytest主要支持两种自动化测试方案:
 
 .. code-block:: python
 
-	import py
-
 	def add_two(a, b):
 	    return a + b
 
 	def test_add_two():
 	    assert add_two(1, 2) == 3
-	    
-	py.test.cmdline.main()
+	
+	if __name__ == "__main__"    :
+	    import py
+	    py.test.cmdline.main("--tb=native") # use native python trace back
 
 
 附录
