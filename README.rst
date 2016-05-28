@@ -21,9 +21,12 @@ Do this:
 	
 	if __name__ == "__main__"    :
 	    import py
-	    py.test.cmdline.main("--tb=native") # use native python trace back
+	    py.test.cmdline.main("")
+
+For more example, read `THIS <https://github.com/MacHu-GWU/learn_pytest-project/blob/master/tests/test_one.py>`_
 
 
 Appendix
 --------
+- `pytest document <https://pytest.org/latest/contents.html>`_
 - `py.test command line options <https://pytest.org/latest/usage.html>`_, of course you can call help information via: ``py.test -h``.

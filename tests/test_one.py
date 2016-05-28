@@ -6,6 +6,7 @@ you can run this script as main script.
 """
 
 from __future__ import print_function
+import os
 import pytest
 
 
@@ -14,15 +15,7 @@ def add_two(a, b):
 
 
 def test_add_two():
-    assert add_two(1, 2) == 3
-
-
-def add_three(a, b, c):
-    return a + b + c
-
-
-def test_add_three():
-    assert add_three(1, 2, 3) == 6
+    assert add_two(1, 2) == 0
 
 
 def test_raise_exception():
@@ -48,9 +41,28 @@ def test_print_to_console():
     print("Hello Pytest!")
     
 
-def test 
+def test_create_file(tmpdir):
+    """pytest能够帮你虚拟一个临时的文件目录。你可以使用面向对象的API接口创建
+    这些文件以及写入内容。然后对其进行测试。在测试结束后pytest会自动将其销毁。
+    
+    对于比较复杂的文件结构, 我建议用os模块手动实现这部分测试。
+    
+    ref: https://pytest.org/latest/tmpdir.html
+    """
+    p = tmpdir.mkdir("sub").join("hello.txt")
+    p.write("content")
+    assert p.read() == "content"
+    assert len(tmpdir.listdir()) == 1
 
 
+"""
+下面的代码能让pytest从脚本内运行, 而不需要使用到命令行。
+
+pytest的一些参数的解释:
+
+- ``--tb=native``: 使用Python原生的traceback捕捉器, 使得可以通过点击跳转到错误行。
+- ``-s``: 使pytest不捕捉输出在console上的内容, 也就是允许打印文本到console。
+"""
 if __name__ == "__main__":
     import py
-    py.test.cmdline.main("--tb=native -s") # use native python trace back
+    py.test.cmdline.main("--tb=native -s")
