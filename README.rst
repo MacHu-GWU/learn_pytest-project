@@ -23,7 +23,7 @@ Do this:
 	    import py
 	    py.test.cmdline.main("")
 
-For more example, read `THIS <https://github.com/MacHu-GWU/learn_pytest-project/blob/master/tests/test_one.py>`_
+For more example, read `THIS <https://github.com/MacHu-GWU/learn_pytest-project/blob/master/tests>`_
 
 
 Appendix
