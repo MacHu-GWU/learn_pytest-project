@@ -4,8 +4,8 @@ Pytest使用指南
 
 
 模块的开发过程中, 写单元测试代码
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-在功能代码的开发过程中, 为了方便, 我们会想要将功能代码和测试代码放在一个文件中, 免除切换的烦恼。而在开发完毕后, 将测试代码移动到专门的测试文件中时, 我们想直接将功能代码后的测试代码拷贝过去即可。那么, 你需要这么写:
+--------------------------------
+在功能代码的开发过程中, 为了方便, 我们会想要将功能代码和测试代码放在一个文件中, 免除来回切换的烦恼。而在开发完毕后, 将测试代码移动到专门的测试文件中时, 我们想直接将功能代码后的测试代码拷贝过去即可。那么, 你需要这么写:
 
 请观察这一段示例代码, ``addition.py``:
 
@@ -34,29 +34,66 @@ Pytest使用指南
 
 
 如何组织测试代码文件夹
-~~~~~~~~~~~~~~~~~~~
-我们想要在出了问题时, 只对出了问题的模块进行调试, 而不想管其他模块的测试。而在所有问题都被解决后, 想要有一个方法一键测试所有的模块。那么, 你需要这么组织你的测试代码:
+----------------------
+一个好的测试代码文件结构需要满足:
 
-请观察下面的文件目录结构:
+- 能够对每一个文件进行单元测试
+- 能够对每一个文件夹下的, 包含子文件夹中的文件进行单元测试
+- 能够对整个测试目录进行单元测试。
+- **测试代码不要从其他测试代码中import东西**, 这样会导致结构紊乱。
 
+``pytest`` 支持 `两种风格 <http://doc.pytest.org/en/latest/goodpractices.html#choosing-a-test-layout-import-rules>`_ 的文件目录结构。
+
+
+风格1: 将功能代码和测试代码分离
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. code-block:: python
 
 	xxx-project
 	|--- xxx # your package code directory
 	|--- tests # pytest directory
 		|--- test_all.py # test everything
-		|--- ... # create a test script for all module
+		|--- test_module.py # create test script for each module
+		|--- ...
 
 ``test_all.py``:
 
 .. code-block:: python
 
 	#!/usr/bin/env python
-	# -*- coding: utf-8 -*-    
+	# -*- coding: utf-8 -*-
 
 	if __name__ == "__main__":
 	    import py
 	    
 	    py.test.cmdline.main("")
 
-你的项目开发完成后, 所有的测试代码都将放在 ``tests`` 目录下。 而你可以为你的包中的所有模块都加上前缀 ``test`` 创建一个测试模块, 并保持同样的目录组织结构。 在这些文件中, 最后调用测试的命令行都使用 ``py.test.cmdline.main(os.path.basename(__file__))`` 以保证每个文件都可以单独运行。 而 ``test_all.py`` 文件能运行该目录下的所有测试文件。
+``test_module.py``:
+
+.. code-block:: python
+
+	#!/usr/bin/env python
+	# -*- coding: utf-8 -*-
+
+	if __name__ == "__main__":
+	    import py
+	    import os
+	    py.test.cmdline.main("%s --tb=native -s" % os.path.basename(__file__))
+
+你的项目开发完成后, 所有的测试代码都将放在 ``tests`` 目录下。 而你可以为你的包中的所有模块都加上前缀 ``test`` 创建一个测试模块, 并保持同样的目录组织结构。 在这些文件中, 最后调用测试的命令行都使用 ``py.test.cmdline.main(os.path.basename(__file__))`` 以保证每个文件都可以单独运行。 而 ``test_all.py`` 文件能运行该目录下的所有测试文件。**这样做是我所推荐的**
+
+
+风格2: 将测试代码包含在功能代码中
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+
+	xxx-project
+	|--- xxx # your package code directory
+		|--- tests # pytest directory
+			|--- test_all.py # test everything
+			|--- test_module.py # create test script for each module
+			|--- ...
+		|--- __init__.py
+		|--- ...
+
+这样做的唯一好处就是可以让用户能从功能代码中执行全部单元测试。具体方法还有待研究。
