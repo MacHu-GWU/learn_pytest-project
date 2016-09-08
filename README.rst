@@ -1,5 +1,7 @@
 Welcome to the learn_pytest Documentation
 =========================================
+This project is my notes for learning pytest, the best testing framework for Python.
+
 pytest support two way of testing:
 
 **Run test from command line**
@@ -20,8 +22,8 @@ Do this:
 	    assert add_two(1, 2) == 3
 	
 	if __name__ == "__main__"    :
-	    import py
-	    py.test.cmdline.main("")
+	    import pytest
+	    pytest.main("")
 
 For more example, read `THIS <https://github.com/MacHu-GWU/learn_pytest-project/blob/master/tests>`_
 
