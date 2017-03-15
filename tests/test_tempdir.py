@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import pytest
 
 def test_create_file(tmpdir):
     """pytest能够帮你虚拟一个临时的文件目录。你可以使用面向对象的API接口创建
@@ -18,4 +19,5 @@ def test_create_file(tmpdir):
 
 if __name__ == "__main__":
     import os
-    pytest.main([os.path.basename(__file__), "--tb=native", "-s", ])
+
+    pytest.main([os.path.basename(__file__), "--tb=native", "-s"])

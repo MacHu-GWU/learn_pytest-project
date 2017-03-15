@@ -29,7 +29,7 @@ Pytest使用指南
 		"""为模块写的单元测试
 		"""
 	    assert add_two(1, 2) == 3
-	    
+
 
 	if __name__ == "__main__":
 	    import os
@@ -72,9 +72,9 @@ Pytest使用指南
 	# -*- coding: utf-8 -*-
 
 	if __name__ == "__main__":
-	    import py
-	    
-	    py.test.cmdline.main("")
+	    import pytest
+
+	    pytest.main(["--tb=native", "-s"])
 
 ``test_module.py``:
 
@@ -83,10 +83,12 @@ Pytest使用指南
 	#!/usr/bin/env python
 	# -*- coding: utf-8 -*-
 
+	import pytest
+
 	if __name__ == "__main__":
-	    import py
 	    import os
-	    py.test.cmdline.main("%s --tb=native -s" % os.path.basename(__file__))
+
+	    pytest.main([os.path.basename(__file__), "--tb=native", "-s"])
 
 你的项目开发完成后, 所有的测试代码都将放在 ``tests`` 目录下。 而你可以为你的包中的所有模块都加上前缀 ``test`` 创建一个测试模块, 并保持同样的目录组织结构。 在这些文件中, 最后调用测试的命令行都使用 ``py.test.cmdline.main(os.path.basename(__file__))`` 以保证每个文件都可以单独运行。 而 ``test_all.py`` 文件能运行该目录下的所有测试文件。**这样做是我所推荐的**
 

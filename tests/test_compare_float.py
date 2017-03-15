@@ -12,7 +12,7 @@ import pytest
 def add_two(a, b):
     return a + b
 
-  
+
 def test_add_two():
     if pytest.__version__.startswith("3"):
         assert add_two(0.1, 0.2) == pytest.approx(0.3)
@@ -21,4 +21,5 @@ def test_add_two():
 
 if __name__ == "__main__":
     import os
-    pytest.main([os.path.basename(__file__), "--tb=native", "-s", ])
+
+    pytest.main([os.path.basename(__file__), "--tb=native", "-s"])

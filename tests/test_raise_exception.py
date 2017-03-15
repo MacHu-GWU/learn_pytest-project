@@ -11,7 +11,7 @@
 
 ref: https://pytest.org/latest/assert.html#assertions-about-expected-exceptions 
 """
-    
+
 import pytest
 
 
@@ -23,4 +23,5 @@ def test_raise_exception():
 
 if __name__ == "__main__":
     import os
-    pytest.main([os.path.basename(__file__), "--tb=native", "-s", ])
+
+    pytest.main([os.path.basename(__file__), "--tb=native", "-s"])

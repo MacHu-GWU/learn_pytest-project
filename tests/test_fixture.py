@@ -11,4 +11,5 @@ import pytest
 
 if __name__ == "__main__":
     import os
-    pytest.main([os.path.basename(__file__), "--tb=native", "-s", ])
+
+    pytest.main([os.path.basename(__file__), "--tb=native", "-s"])

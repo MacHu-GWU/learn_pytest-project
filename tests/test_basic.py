@@ -28,4 +28,5 @@ pytest的一些参数的解释:
 """
 if __name__ == "__main__":
     import os
-    pytest.main([os.path.basename(__file__), "--tb=native", "-s", ])
+
+    pytest.main([os.path.basename(__file__), "--tb=native", "-s"])

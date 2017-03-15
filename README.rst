@@ -20,7 +20,7 @@ Do this:
 
 	def test_add_two():
 	    assert add_two(1, 2) == 3
-	
+
 	if __name__ == "__main__"    :
 	    import pytest
 	    pytest.main("")
